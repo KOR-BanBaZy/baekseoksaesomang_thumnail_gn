@@ -1,4 +1,5 @@
 from PIL import Image, ImageDraw, ImageFont
+import os
 
 chr_name = "백석새소망교회 주일예배"
 title = "주님을 향한\n우리의 열심"
@@ -6,19 +7,26 @@ bible = "로마서 땡땡 땡땡절"
 pastor = "김보현 담임목사"
 
 def add_text_to_img():
-    image_path = "img_0_non_txt.jpg"
+    config = load_settings()
+    image_path = config.get("input_path", "")
+    print(f"config: {config}")
     img = Image.open(image_path)
     draw = ImageDraw.Draw(img)
 
-    draw.text(xy=(80.4, 79.4), text = chr_name, font = font_0(36), fill = (255, 255, 255))
-    draw.text(xy=(80.4, 160.8), text = title, font = font_0(100.2), fill = (255, 255, 255))
-    draw.text(xy=(80.4, 415), text = bible, font = font_1(72), fill = (255, 255, 255))
-    draw.text(xy=(80.4, 523.2), text = pastor, font = font_1(72), fill = (255, 255, 255))
+    if not config:
+        print("ERR, 설정 값이 없는뎁쇼?")
+        return
 
-    # output_path = "result_img.jpg"
+    draw.text(xy=(80.4, 79.4), text=config.get("chr_name", ""), font = font_0(36), fill = (255, 255, 255))
+    draw.text(xy=(80.4, 160.8), text=config.get("title", ""), font = font_0(100.2), fill = (255, 255, 255), spacing = 25)
+    draw.text(xy=(80.4, 415), text=config.get("bible", ""), font = font_1(72), fill = (255, 255, 255))
+    draw.text(xy=(80.4, 523.2), text=config.get("preacher", ""), font = font_1(72), fill = (255, 255, 255))
+
+    output_path = config.get("output_path", "")
+    img.save(output_path)
     
     img.show()
-    print("done")
+    print("DONE!!")
 
 def font_0(font_size):
     font_path = "fonts/BMHANNA_11yrs_ttf.ttf"
@@ -29,5 +37,25 @@ def font_1(font_size):
     font_path = "fonts/BMHANNAAir_ttf.ttf"
     font_tag = ImageFont.truetype(font_path, font_size)
     return font_tag
+
+def load_settings():
+    file_path = "setting.txt"
+    settings = {}
+    if not os.path.exists(file_path): 
+        print(f"ERR: {file_path} 파일 찾을 수 없음")
+        return settings
+
+    with open(file_path, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+
+            key, val = line.split("=", 1)
+            val = val.replace("\\n", "\n")
+            settings[key.strip()] = val.strip()
+
+    return settings
 
 add_text_to_img()
