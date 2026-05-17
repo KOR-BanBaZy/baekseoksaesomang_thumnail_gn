@@ -1,6 +1,6 @@
 chr_name=백석새소망교회 주일예배
 title=주님을 향한\n우리의 열심
 bible=시편 63:1-8
-preacher=아무개 담임목사
-input_path=img_0_non_txt.jpg
-output_path=thumbnail.jpg
+preacher=김보현 담임목사
+input_path=img_1_non_txt.jpg
+output_path=thumbnail_1.jpg
