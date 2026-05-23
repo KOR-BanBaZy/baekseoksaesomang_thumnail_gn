@@ -1,20 +1,17 @@
 from PIL import Image, ImageDraw, ImageFont
-import os
-
-chr_name = "백석새소망교회 주일예배"
-title = "주님을 향한\n우리의 열심"
-bible = "로마서 땡땡 땡땡절"
-pastor = "김보현 담임목사"
+import os, traceback
 
 def add_text_to_img():
     config = load_settings()
     image_path = config.get("input_path", "")
-    print(f"config: {config}")
+    print(f"불러온 설정값: {config}")
     img = Image.open(image_path)
     draw = ImageDraw.Draw(img)
 
+
     if not config:
         print("ERR, 설정 값이 없는뎁쇼?")
+        input("\n프로그램이 종료되었습니다. 엔터를 누르면 창이 닫힙니다...")
         return
 
     draw.text(xy=(80.4, 79.4), text=config.get("chr_name", ""), font = font_0(36), fill = (255, 255, 255))
@@ -29,20 +26,21 @@ def add_text_to_img():
     print("DONE!!")
 
 def font_0(font_size):
-    font_path = "fonts/BMHANNA_11yrs_ttf.ttf"
+    font_path = "../fonts/BMHANNA_11yrs_ttf.ttf"
     font_tag = ImageFont.truetype(font_path, font_size)
     return font_tag
 
 def font_1(font_size):
-    font_path = "fonts/BMHANNAAir_ttf.ttf"
+    font_path = "../fonts/BMHANNAAir_ttf.ttf"
     font_tag = ImageFont.truetype(font_path, font_size)
     return font_tag
 
 def load_settings():
-    file_path = "setting.txt"
+    file_path = "../setting.txt"
     settings = {}
     if not os.path.exists(file_path): 
         print(f"ERR: {file_path} 파일 찾을 수 없음")
+        input("\n프로그램이 종료되었습니다. 엔터를 누르면 창이 닫힙니다...")
         return settings
 
     with open(file_path, "r", encoding="utf-8") as f:
@@ -59,3 +57,4 @@ def load_settings():
     return settings
 
 add_text_to_img()
+input("\n프로그램이 종료되었습니다. 엔터를 누르면 창이 닫힙니다...")
