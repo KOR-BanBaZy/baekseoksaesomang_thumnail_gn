@@ -56,5 +56,6 @@ def load_settings():
 
     return settings
 
+print("[백석새소망교회 썸네일 자동 제조기]")
 add_text_to_img()
 input("\n프로그램이 종료되었습니다. 엔터를 누르면 창이 닫힙니다...")
