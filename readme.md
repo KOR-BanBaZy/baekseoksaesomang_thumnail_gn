@@ -16,3 +16,5 @@
 
 # 기타
 - 폰트는 폰트 저작권자에게 있습니다.
+- 본 프로그램으로 제작된 썸네일은 아래 링크에서 확인할 수 있습니다.
+https://www.youtube.com/@%EB%B0%B1%EC%84%9D%EC%83%88%EC%86%8C%EB%A7%9D%EA%B5%90%ED%9A%8C_%EC%9D%B4%EC%B2%9C/streams
